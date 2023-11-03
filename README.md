@@ -9,7 +9,7 @@ This is the author's implementation for [Simplifying Transformer Blocks](todo-in
 
 
 <p align="center">
-     <img src="./assets/combined_blocks.png" width="600">
+     <img src="assets/combined_blocks.png" width="600">
 </p>
 
 
