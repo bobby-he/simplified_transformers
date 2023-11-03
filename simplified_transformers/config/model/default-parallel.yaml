@@ -1,0 +1,7 @@
+name: gpt2
+
+defaults:
+  - default
+
+attn_block_skip_gain: 0
+parallel_layers: true

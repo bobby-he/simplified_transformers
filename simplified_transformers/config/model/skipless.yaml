@@ -1,0 +1,28 @@
+name: gpt2
+defaults:
+  - default
+
+attn_block_skip_gain: 0
+
+mlp_block_resid_gain: 0.1 # Change for different depths: O(1/sqrt(depth))
+
+attn_mat_skip_gain: 1
+
+value_resid_gain: 0
+value_skip_gain: 1
+first_layer_value_resid_gain: 1
+
+proj_resid_gain: ${model.value_resid_gain}
+proj_skip_gain: 1
+
+centre_attn: true
+centre_attn_gain: ${model.attn_mat_resid_gain}
+
+trainable_attn_block_gains: true
+trainable_mlp_block_gains: true
+trainable_attn_mat_gains: true
+trainable_value_gains: true
+trainable_proj_gains: true
+
+query_init_std: 0
+val_init_type: id

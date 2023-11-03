@@ -1,0 +1,60 @@
+name: gpt2
+context_length: 128
+
+n_embd: 768
+n_layer: 12
+n_head: 12
+norm_type: rmsnorm
+norm_position: pre
+
+# No dropout by default
+resid_pdrop: 0
+attn_pdrop: 0
+embd_pdrop: 0
+
+# Gain parameters
+attn_block_resid_gain: 1
+attn_block_skip_gain: 1
+
+mlp_block_resid_gain: 1
+mlp_block_skip_gain: 1
+
+attn_mat_resid_gain: 1
+attn_mat_skip_gain: 0
+
+value_resid_gain: 1
+value_skip_gain: null
+first_layer_value_resid_gain: null
+
+proj_resid_gain: ${model.value_resid_gain}
+proj_skip_gain: null
+last_layer_proj_resid_gain: null
+
+centre_attn: false
+centre_attn_gain: ${model.attn_mat_resid_gain}
+
+# Whether or not to have trainable gains
+trainable_attn_block_gains: false
+trainable_mlp_block_gains: false
+trainable_attn_mat_gains: false
+trainable_value_gains: false
+trainable_proj_gains: false
+
+# Parameter initialisations
+initializer_range: 0.02
+val_proj_init_std: null
+query_init_std: null
+key_init_std: null
+
+val_init_type: normal
+proj_init_type: ${model.val_init_type}
+tie_valproj_init: null
+
+# MLP sub-block arguments
+mlp_width_mult: 4
+activation_function: leaky_relu
+lrelu_neg_slope: 0 # Defaults to ReLU
+mlp_proj_init_std: null
+
+# Parallel block
+parallel_layers: false

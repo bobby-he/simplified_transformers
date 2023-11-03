@@ -1,0 +1,7 @@
+codeparrot-ds
+wandb
+outputs
+*.json
+*__pycache__
+notebooks
+venv
