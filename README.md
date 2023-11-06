@@ -1,6 +1,6 @@
 # Simplified Transformers
 
-This is the author's implementation for [Simplifying Transformer Blocks](todo-includelink). Our abstract can be found below:
+This is the author's implementation for [Simplifying Transformer Blocks](https://arxiv.org/abs/2311.01906). Our abstract can be found below:
 
 >A simple design recipe for deep Transformers is to compose identical building blocks. But standard transformer blocks are far from simple, interweaving attention and MLP sub-blocks with skip connections \& normalisation layers in precise arrangements. This complexity leads to brittle architectures, where seemingly minor changes can significantly reduce training speed, or render models untrainable.
 
