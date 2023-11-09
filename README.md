@@ -47,3 +47,15 @@ Other model settings can be customised from command line. For example, the follo
 which should obtain eval loss of eval loss of ~1.245 after 40K steps. More training scripts can be found in ```exp_scripts/```.
 
 We use [wandb](https://wandb.ai/) for logging by default. To turn this off, simply add ```use_wandb=False``` on command line.
+
+## Citation
+If you found this work useful, please consider citing:
+
+```bib
+@article{he2023simplifying,
+  title={Simplifying Transformer Blocks},
+  author={He, Bobby and Hofmann, Thomas},
+  journal={arXiv preprint arXiv:2311.01906},
+  year={2023}
+}
+```
