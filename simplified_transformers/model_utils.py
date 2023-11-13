@@ -80,7 +80,7 @@ class myGPT2Block(nn.Module):
             self.ln_1 = RMSNorm(hidden_size, eps=config.layer_norm_epsilon)
             self.ln_2 = RMSNorm(hidden_size, eps=config.layer_norm_epsilon)
         elif config.norm_type == "none":
-            # always use LN in first layer to normallise input activation norms.
+            # always use LN in first layer to normalise input activation norms.
             self.ln_1 = (
                 nn.Identity()
                 if layer_idx > 0
