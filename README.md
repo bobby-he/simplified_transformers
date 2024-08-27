@@ -1,6 +1,6 @@
 # Simplified Transformers
 
-This is the author's implementation for [Simplifying Transformer Blocks](todo-includelink). Our abstract can be found below:
+This is the author's implementation for [Simplifying Transformer Blocks](https://arxiv.org/abs/2311.01906). Our abstract can be found below:
 
 >A simple design recipe for deep Transformers is to compose identical building blocks. But standard transformer blocks are far from simple, interweaving attention and MLP sub-blocks with skip connections \& normalisation layers in precise arrangements. This complexity leads to brittle architectures, where seemingly minor changes can significantly reduce training speed, or render models untrainable.
 
@@ -9,7 +9,7 @@ This is the author's implementation for [Simplifying Transformer Blocks](todo-in
 
 
 <p align="center">
-     <img src="./assets/combined_blocks.png" width="600">
+     <img src="assets/combined_blocks.png" width="600">
 </p>
 
 
@@ -47,3 +47,15 @@ Other model settings can be customised from command line. For example, the follo
 which should obtain eval loss of eval loss of ~1.245 after 40K steps. More training scripts can be found in ```exp_scripts/```.
 
 We use [wandb](https://wandb.ai/) for logging by default. To turn this off, simply add ```use_wandb=False``` on command line.
+
+## Citation
+If you found this work useful, please consider citing:
+
+```bib
+@article{he2023simplifying,
+  title={Simplifying Transformer Blocks},
+  author={He, Bobby and Hofmann, Thomas},
+  journal={arXiv preprint arXiv:2311.01906},
+  year={2023}
+}
+```
