@@ -6,6 +6,8 @@ n_layer: 12
 n_head: 12
 norm_type: rmsnorm
 norm_position: pre
+qk_norm_type: none
+dot_norm_type: none
 
 # No dropout by default
 resid_pdrop: 0

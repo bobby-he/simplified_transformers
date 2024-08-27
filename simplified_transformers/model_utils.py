@@ -276,6 +276,25 @@ class myGPT2Attention(nn.Module):
             self.v_attn.weight.data.normal_(mean=0.0, std=config.val_proj_init_std)
             self.c_proj.weight.data.normal_(mean=0.0, std=config.val_proj_init_std)
 
+
+        if config.qk_norm_type == "rmsnorm":
+            self.q_norm = RMSNorm(self.head_dim, eps=config.layer_norm_epsilon)
+            self.k_norm = RMSNorm(self.head_dim, eps=config.layer_norm_epsilon)
+        elif config.qk_norm_type == "none":
+            self.q_norm = nn.Identity()
+            self.k_norm = nn.Identity()
+        else:   
+            raise NotImplementedError
+        
+        if config.dot_norm_type == "tanh":
+            # https://github.com/xai-org/grok-1/blob/be76c959faa3ee0a6b5fa6770b793ab6e7c9abab/model.py#L865
+            softcap = 30
+            self.dot_norm = lambda x: softcap * torch.tanh((x).type(torch.float32) / softcap)
+        elif config.dot_norm_type == "none":
+            self.dot_norm = nn.Identity()
+        else:
+            raise NotImplementedError
+
         self.attn_dropout = nn.Dropout(config.attn_pdrop)
         self.resid_dropout = nn.Dropout(config.resid_pdrop)
 
@@ -334,6 +353,9 @@ class myGPT2Attention(nn.Module):
         # Layer-wise attention scaling
         if self.scale_attn_by_inverse_layer_idx:
             attn_weights = attn_weights / float(self.layer_idx + 1)
+
+        # Normalise the attn logits, e.g. with tanh
+        attn_weights = self.dot_norm(attn_weights)
 
         query_length, key_length = query.size(-2), key.size(-2)
         causal_mask = self.bias[
@@ -412,6 +434,9 @@ class myGPT2Attention(nn.Module):
         query = self._split_heads(query, self.num_heads, self.head_dim)
         key = self._split_heads(key, self.num_heads, self.head_dim)
         value = self._split_heads(value, self.num_heads, self.head_dim)
+
+        query = self.q_norm(query)
+        key = self.k_norm(key)
 
         if layer_past is not None:
             past_key, past_value = layer_past

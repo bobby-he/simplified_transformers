@@ -87,6 +87,7 @@ def launch(cfg):
         n_inner=int(cfg.model.n_embd * cfg.model.mlp_width_mult),
         initializer_range=cfg.model.initializer_range,
         output_attentions=cfg.report_attn_entropy,
+        output_hidden_states=cfg.report_outliers,
     )
     model = GPT2LMHeadModel(model_config)
 
@@ -123,6 +124,8 @@ def launch(cfg):
             "parallel_layers": cfg.model.parallel_layers,
             "norm_position": cfg.model.norm_position,
             "tie_valproj_init": cfg.model.tie_valproj_init,
+            "qk_norm_type": cfg.model.qk_norm_type,
+            "dot_norm_type": cfg.model.dot_norm_type,
         }
     )
 
@@ -157,6 +160,7 @@ def launch(cfg):
     # TODO: make this cleaner
     args.report_gains = cfg.report_gains
     args.report_attn_entropy = cfg.report_attn_entropy
+    args.report_outliers = cfg.report_outliers
 
     trainer = train_utils.MyTrainer(
         model=model,

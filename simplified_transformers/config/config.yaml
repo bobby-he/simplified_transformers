@@ -6,5 +6,6 @@ gpu: 0
 seed: 0
 report_gains: false
 report_attn_entropy: false
+report_outliers: false
 num_token_mult: 1
 use_wandb: true

@@ -1,0 +1,13 @@
+name: gpt2
+defaults:
+  - default
+
+mlp_block_resid_gain: 0.2 # Change for different depths: O(1/sqrt(depth))
+attn_block_resid_gain: ${model.mlp_block_resid_gain}
+
+norm_type: none
+qk_norm_type: rmsnorm
+
+# # Optional
+# trainable_attn_block_gains: true
+# trainable_mlp_block_gains: true
