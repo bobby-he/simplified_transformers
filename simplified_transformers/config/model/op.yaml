@@ -1,3 +1,4 @@
+# from https://arxiv.org/abs/2405.19279
 name: gpt2
 defaults:
   - default
