@@ -1,12 +1,6 @@
 # Simplified Transformers
 
-This is the author's implementation for [Simplifying Transformer Blocks](https://arxiv.org/abs/2311.01906). Our abstract can be found below:
-
->A simple design recipe for deep Transformers is to compose identical building blocks. But standard transformer blocks are far from simple, interweaving attention and MLP sub-blocks with skip connections \& normalisation layers in precise arrangements. This complexity leads to brittle architectures, where seemingly minor changes can significantly reduce training speed, or render models untrainable.
-
->In this work, we ask to what extent the standard transformer block can be simplified? Combining signal propagation theory and empirical observations, we motivate modifications that allow many block components to be removed with no loss of training speed, including skip connections, projection or value parameters, sequential sub-blocks and normalisation layers. In experiments on both autoregressive decoder-only and BERT encoder-only models, our 
- simplified transformers match the per-update training speed and performance of standard transformers, while enjoying 15\% faster training throughput, and using 15\% fewer parameters.
-
+This is the author's implementation for [Simplifying Transformer Blocks](https://arxiv.org/abs/2311.01906) (ICLR 2024) and [Understanding and Minimising Outlier Features in Transformer Training](https://arxiv.org/abs/2405.19279) (NeurIPS 2024).
 
 <p align="center">
      <img src="assets/combined_blocks.png" width="600">
@@ -48,14 +42,34 @@ which should obtain eval loss of eval loss of ~1.245 after 40K steps. More train
 
 We use [wandb](https://wandb.ai/) for logging by default. To turn this off, simply add ```use_wandb=False``` on command line.
 
+## Outlier Feature computation
+The kurtosis computation for outlier features can be found [here](https://github.com/bobby-he/simplified_transformers/blob/57137601c3b1d89b5f733065835c7f3a06b7d440/simplified_transformers/train_utils.py#L130). 
+
+Note we take the variance (not second moment) of the normalised neuron-wise activation squared mean in [here](https://github.com/bobby-he/simplified_transformers/blob/57137601c3b1d89b5f733065835c7f3a06b7d440/simplified_transformers/train_utils.py#L147) which means we compute $kurtosis-1$. This is out by an additive constant of 1, but doesn't change our findings regarding preventing outlier features.
+
+The config for the OP block is [here](https://github.com/bobby-he/simplified_transformers/blob/main/simplified_transformers/config/model/op.yaml).
+
 ## Citation
-If you found this work useful, please consider citing:
+If you found this codebase useful, please consider citing:
 
 ```bib
-@article{he2023simplifying,
-  title={Simplifying Transformer Blocks},
-  author={He, Bobby and Hofmann, Thomas},
-  journal={arXiv preprint arXiv:2311.01906},
-  year={2023}
+@inproceedings{
+he2024simplifying,
+title={Simplifying Transformer Blocks},
+author={Bobby He and Thomas Hofmann},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+url={https://openreview.net/forum?id=RtDok9eS3s}
+}
+```
+
+```bib
+@inproceedings{
+he2024understanding,
+title={Understanding and Minimising Outlier Features in Transformer Training},
+author={Bobby He and Lorenzo Noci and Daniele Paliotta and Imanol Schlag and Thomas Hofmann},
+booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems},
+year={2024},
+url={https://openreview.net/forum?id=npJQ6qS4bg}
 }
 ```
